@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using Soenneker.Extensions.Task;
+using Soenneker.Extensions.ValueTask;
 using Soenneker.Loops.ClientUtil.Abstract;
 using Soenneker.Loops.Contacts.Abstract;
 using Soenneker.Loops.OpenApiClient;
 using Soenneker.Loops.OpenApiClient.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Soenneker.Loops.Contacts;
 
@@ -28,7 +30,7 @@ public sealed class LoopsContactsUtil : ILoopsContactsUtil
     {
         try
         {
-            LoopsOpenApiClient client = await _loopsClientUtil.Get(cancellationToken);
+            LoopsOpenApiClient client = await _loopsClientUtil.Get(cancellationToken).NoSync();
 
             var request = new ContactRequest
             {
@@ -40,7 +42,7 @@ public sealed class LoopsContactsUtil : ILoopsContactsUtil
                 UserId = userId
             };
 
-            ContactSuccessResponse? response = await client.Contacts.Create.PostAsync(request, null, cancellationToken);
+            ContactSuccessResponse? response = await client.Contacts.Create.PostAsync(request, null, cancellationToken).NoSync();
             return response?.Id ?? throw new Exception("Failed to get contact ID from response");
         }
         catch (Exception ex)
@@ -55,9 +57,9 @@ public sealed class LoopsContactsUtil : ILoopsContactsUtil
     {
         try
         {
-            LoopsOpenApiClient client = await _loopsClientUtil.Get(cancellationToken);
+            LoopsOpenApiClient client = await _loopsClientUtil.Get(cancellationToken).NoSync();
 
-            var request = new ContactRequest
+            var request = new ContactUpdateRequest
             {
                 Email = email,
                 FirstName = firstName,
@@ -67,7 +69,7 @@ public sealed class LoopsContactsUtil : ILoopsContactsUtil
                 UserId = userId
             };
 
-            ContactSuccessResponse? response = await client.Contacts.Update.PutAsync(request, null, cancellationToken);
+            ContactSuccessResponse? response = await client.Contacts.Update.PutAsync(request, null, cancellationToken).NoSync();
             return response?.Id ?? throw new Exception("Failed to get contact ID from response");
         }
         catch (Exception ex)
@@ -81,9 +83,9 @@ public sealed class LoopsContactsUtil : ILoopsContactsUtil
     {
         try
         {
-            LoopsOpenApiClient client = await _loopsClientUtil.Get(cancellationToken);
+            LoopsOpenApiClient client = await _loopsClientUtil.Get(cancellationToken).NoSync();
 
-            List<Contact>? response = await client.Contacts.Find.GetAsync(options => { options.QueryParameters.Email = email; }, cancellationToken);
+            List<Contact>? response = await client.Contacts.Find.GetAsync(options => { options.QueryParameters.Email = email; }, cancellationToken).NoSync();
             return response?.FirstOrDefault()?.Id;
         }
         catch (Exception ex)
@@ -97,11 +99,11 @@ public sealed class LoopsContactsUtil : ILoopsContactsUtil
     {
         try
         {
-            LoopsOpenApiClient client = await _loopsClientUtil.Get(cancellationToken);
+            LoopsOpenApiClient client = await _loopsClientUtil.Get(cancellationToken).NoSync();
 
             var request = new ContactDeleteRequest {Email = email};
 
-            ContactDeleteResponse? response = await client.Contacts.DeletePath.PostAsync(request, null, cancellationToken);
+            ContactDeleteResponse? response = await client.Contacts.DeletePath.PostAsync(request, null, cancellationToken).NoSync();
             return response?.Success ?? false;
         }
         catch (Exception ex)
