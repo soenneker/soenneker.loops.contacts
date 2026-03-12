@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Soenneker.Loops.Contacts.csproj" />
+        <ProjectReference Include="..\..\src\Soenneker.Loops.Contacts\Soenneker.Loops.Contacts.csproj" />
     </ItemGroup>
 
     <ItemGroup>
