@@ -1,20 +1,19 @@
-﻿using Soenneker.Loops.Contacts.Abstract;
-using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Loops.Contacts.Abstract;
+using Soenneker.Tests.HostedUnit;
 
 namespace Soenneker.Loops.Contacts.Tests;
 
-[Collection("Collection")]
-public sealed class LoopsContactsUtilTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public sealed class LoopsContactsUtilTests : HostedUnitTest
 {
     private readonly ILoopsContactsUtil _util;
 
-    public LoopsContactsUtilTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public LoopsContactsUtilTests(Host host) : base(host)
     {
         _util = Resolve<ILoopsContactsUtil>(true);
     }
 
-    [Fact]
+    [Test]
     public void Default()
     {
 
