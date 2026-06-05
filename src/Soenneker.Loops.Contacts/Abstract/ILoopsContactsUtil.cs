@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace Soenneker.Loops.Contacts.Abstract;
 
+/// <summary>
+/// Defines the loops contacts util contract.
+/// </summary>
 public interface ILoopsContactsUtil
 {
     /// <summary>
