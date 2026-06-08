@@ -42,7 +42,7 @@ public sealed class LoopsContactsUtil : ILoopsContactsUtil
                 UserId = userId
             };
 
-            ContactSuccessResponse? response = await client.Contacts.Create.PostAsync(request, null, cancellationToken).NoSync();
+            ContactSuccessResponse? response = await client.V1.Contacts.Create.PostAsync(request, null, cancellationToken).NoSync();
             return response?.Id ?? throw new Exception("Failed to get contact ID from response");
         }
         catch (Exception ex)
@@ -69,7 +69,7 @@ public sealed class LoopsContactsUtil : ILoopsContactsUtil
                 UserId = userId
             };
 
-            ContactSuccessResponse? response = await client.Contacts.Update.PutAsync(request, null, cancellationToken).NoSync();
+            ContactSuccessResponse? response = await client.V1.Contacts.Update.PutAsync(request, null, cancellationToken).NoSync();
             return response?.Id ?? throw new Exception("Failed to get contact ID from response");
         }
         catch (Exception ex)
@@ -85,7 +85,7 @@ public sealed class LoopsContactsUtil : ILoopsContactsUtil
         {
             LoopsOpenApiClient client = await _loopsClientUtil.Get(cancellationToken).NoSync();
 
-            List<Contact>? response = await client.Contacts.Find.GetAsync(options => { options.QueryParameters.Email = email; }, cancellationToken).NoSync();
+            List<Contact>? response = await client.V1.Contacts.Find.GetAsync(options => { options.QueryParameters.Email = email; }, cancellationToken).NoSync();
             return response?.FirstOrDefault()?.Id;
         }
         catch (Exception ex)
@@ -103,7 +103,7 @@ public sealed class LoopsContactsUtil : ILoopsContactsUtil
 
             var request = new ContactDeleteRequest {Email = email};
 
-            ContactDeleteResponse? response = await client.Contacts.DeletePath.PostAsync(request, null, cancellationToken).NoSync();
+            ContactDeleteResponse? response = await client.V1.Contacts.DeletePath.PostAsync(request, null, cancellationToken).NoSync();
             return response?.Success ?? false;
         }
         catch (Exception ex)
