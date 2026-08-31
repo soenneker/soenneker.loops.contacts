@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace Soenneker.Loops.Contacts.Abstract;
 
 /// <summary>
-/// Defines the loops contacts util contract.
+/// Creates, updates, finds, and deletes Loops contacts by email address.
 /// </summary>
 public interface ILoopsContactsUtil
 {
@@ -14,7 +14,7 @@ public interface ILoopsContactsUtil
     /// <param name="email">The contact's email address</param>
     /// <param name="firstName">The contact's first name</param>
     /// <param name="lastName">The contact's last name</param>
-    /// <param name="subscribed">Whether the contact will receive campaign and loops emails</param>
+    /// <param name="subscribed">Whether to change the contact's subscription state. A null value leaves it unchanged.</param>
     /// <param name="userGroup">Group to segment users when sending emails</param>
     /// <param name="userId">A unique user ID from your application</param>
     /// <param name="cancellationToken">Cancellation token</param>

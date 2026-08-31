@@ -6,7 +6,7 @@ using Soenneker.Loops.Contacts.Abstract;
 namespace Soenneker.Loops.Contacts.Registrars;
 
 /// <summary>
-/// A utility library for contact related Loops operations
+/// Registers Loops contact create, update, find, and delete operations.
 /// </summary>
 public static class LoopsContactsUtilRegistrar
 {

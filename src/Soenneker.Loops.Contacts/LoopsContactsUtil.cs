@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace Soenneker.Loops.Contacts;
 
-/// <inheritdoc cref="ILoopsContactsUtil"/>
 public sealed class LoopsContactsUtil : ILoopsContactsUtil
 {
     private readonly ILoopsClientUtil _loopsClientUtil;
@@ -43,7 +42,7 @@ public sealed class LoopsContactsUtil : ILoopsContactsUtil
             };
 
             ContactSuccessResponse? response = await client.V1.Contacts.Create.PostAsync(request, null, cancellationToken).NoSync();
-            return response?.Id ?? throw new Exception("Failed to get contact ID from response");
+            return response?.Id ?? throw new InvalidOperationException("Loops did not return an ID for the created contact.");
         }
         catch (Exception ex)
         {
@@ -64,13 +63,13 @@ public sealed class LoopsContactsUtil : ILoopsContactsUtil
                 Email = email,
                 FirstName = firstName,
                 LastName = lastName,
-                Subscribed = subscribed ?? true,
+                Subscribed = subscribed,
                 UserGroup = userGroup,
                 UserId = userId
             };
 
             ContactSuccessResponse? response = await client.V1.Contacts.Update.PutAsync(request, null, cancellationToken).NoSync();
-            return response?.Id ?? throw new Exception("Failed to get contact ID from response");
+            return response?.Id ?? throw new InvalidOperationException("Loops did not return an ID for the updated contact.");
         }
         catch (Exception ex)
         {
