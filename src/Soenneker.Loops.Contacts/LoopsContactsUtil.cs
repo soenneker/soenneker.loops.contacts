@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Soenneker.Loops.Contacts;
 
+/// <inheritdoc cref="ILoopsContactsUtil" />
 public sealed class LoopsContactsUtil : ILoopsContactsUtil
 {
     private readonly ILoopsClientUtil _loopsClientUtil;
