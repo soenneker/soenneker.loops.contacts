@@ -46,6 +46,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Loops.ClientUtil" Version="11.0.681" />
+        <PackageReference Include="Soenneker.Loops.ClientUtil" Version="11.0.682" />
     </ItemGroup>
 </Project>
